@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador Fabcom: arena sílice frente a abrasivos libres de sílice</title>
+<meta name="description" content="Compare su proyecto de limpieza abrasiva con arena sílice frente a un abrasivo libre de sílice de Fabcom: tiempo, costo de operación, residuos y CO₂.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="assets/css/app.css?v=1.0.0">
+</head>
+<body>
+<a class="salto" href="#simulador">Ir al simulador</a>
+
+<header class="cabecera">
+  <div class="ancho cabecera__fila">
+    <img src="assets/img/logo-fabcom-blanco.png" alt="Fabcom" class="cabecera__logo" width="150" height="33">
+  </div>
+</header>
+
+<main>
+<section class="portada">
+  <div class="ancho portada__rejilla">
+    <div class="portada__texto">
+      <h1>La arena parece más económica por kg, hasta que se presupuesta todo</h1>
+      <p class="portada__bajada">Escriba los datos de su proyecto y compare, en dos minutos, cómo nuestros abrasivos libres de sílice reducen costos operativos, tiempo de blasting, residuos y CO₂.</p>
+      <a class="boton boton--claro" href="#simulador">Comparar mi proyecto</a>
+    </div>
+    <div class="portada__figura" aria-hidden="true">
+      <img src="assets/img/espiral-fabcom.png" alt="" width="620" height="715">
+    </div>
+  </div>
+  <div class="ancho">
+    <ul class="hechos">
+      <li><strong>Decreto 1477 de 2014</strong><span>La Tabla de Enfermedades Laborales de Colombia incluye la silicosis entre las enfermedades laborales directas (Sección II, Parte A).</span></li>
+      <li><strong>Grupo 1</strong><span>es la clasificación de la IARC para la sílice cristalina respirable: cancerígena para humanos.</span></li>
+      <li><strong>Resolución 2467 de 2022</strong><span>En Colombia, el chorro de arena exige un programa de control de sílice: mediciones, vigilancia médica y protección respiratoria.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="simulador" id="simulador" aria-labelledby="sim-titulo">
+  <div class="ancho">
+    <h2 id="sim-titulo">Simulador comparativo</h2>
+    <ol class="pasos" id="pasos">
+      <li class="pasos__item es-actual" data-paso="1"><span class="pasos__num">1</span> Sus datos</li>
+      <li class="pasos__item" data-paso="2"><span class="pasos__num">2</span> Su proyecto</li>
+      <li class="pasos__item" data-paso="3"><span class="pasos__num">3</span> Resultado</li>
+    </ol>
+
+    <div class="aviso" id="aviso" role="alert" hidden></div>
+
+    <!-- Paso 1: contacto -->
+    <form class="panel" id="form-contacto" novalidate>
+      <h3>¿A quién le enviamos el resultado?</h3>
+      <p class="panel__nota">Le mostramos el comparativo en pantalla y se lo enviamos en PDF a su correo.</p>
+      <div class="rejilla rejilla--2">
+        <label class="campo"><span>Nombre completo</span><input type="text" name="nombre" autocomplete="name" required maxlength="120"><small class="campo__error"></small></label>
+        <label class="campo"><span>Correo</span><input type="email" name="email" autocomplete="email" required maxlength="160" placeholder="nombre@empresa.com"><small class="campo__error"></small></label>
+        <label class="campo"><span>Empresa</span><input type="text" name="empresa" autocomplete="organization" required maxlength="160"><small class="campo__error"></small></label>
+        <label class="campo"><span>Teléfono</span><input type="tel" name="telefono" autocomplete="tel" required maxlength="40"><small class="campo__error"></small></label>
+        <label class="campo"><span>Sector <em>opcional</em></span><select name="sector"><option value="">Elija uno</option></select></label>
+        <label class="campo"><span>Su área <em>opcional</em></span><select name="area_cargo"><option value="">Elija una</option></select></label>
+      </div>
+      <fieldset class="campo campo--opciones cliente-tipo"><legend>¿Ya es cliente de Fabcom?</legend>
+        <label class="opcion"><input type="radio" name="tipo_cliente" value="nuevo" checked><span>No, es mi primera vez</span></label>
+        <label class="opcion"><input type="radio" name="tipo_cliente" value="actual"><span>Sí, ya tengo asesor</span></label>
+      </fieldset>
+      <label class="campo campo--asesor" id="campo-asesor" hidden><span>Nombre de su asesor</span><select name="asesor_id" id="asesor-id"><option value="">Elija su asesor</option></select><small class="campo__error"></small></label>
+      <label class="trampa" aria-hidden="true">Sitio web<input type="text" name="sitio_web" tabindex="-1" autocomplete="off"></label>
+      <label class="casilla"><input type="checkbox" name="acepta_datos" required><span>Autorizo a <span data-empresa>Fabcom S.A.S.</span> a tratar mis datos personales para enviarme este resultado y contactarme sobre mi proyecto, según la Ley 1581 de 2012<span id="politica-enlace"></span>.</span></label>
+      <small class="campo__error" data-error="acepta_datos"></small>
+      <label class="casilla"><input type="checkbox" name="acepta_marketing"><span>Quiero recibir información técnica y comercial de Fabcom. <em>Opcional</em></span></label>
+      <div class="panel__acciones"><button class="boton" type="submit">Continuar</button></div>
+    </form>
+
+    <!-- Paso 2: proyecto -->
+    <form class="panel" id="form-proyecto" novalidate hidden>
+      <h3>Cuéntenos de su proyecto</h3>
+      <div class="rejilla rejilla--2">
+        <label class="campo"><span>Tipo de superficie</span><select name="superficie" required><option value="">Elija una</option></select></label>
+        <label class="campo" id="campo-otro" hidden><span>¿Cuál superficie?</span><input type="text" name="superficie_otro" maxlength="80"></label>
+        <div class="campo campo--area">
+          <span>Tamaño del proyecto</span>
+          <div class="interruptor" role="radiogroup" aria-label="Dato que conoce">
+            <label><input type="radio" name="dato_area" value="m2" checked><span>Área en m²</span></label>
+            <label><input type="radio" name="dato_area" value="toneladas"><span>Toneladas de arena</span></label>
+          </div>
+          <input type="text" name="area_m2" id="area-m2" inputmode="decimal" placeholder="Ej.: 1500" aria-label="Área por tratar, en m²">
+          <input type="text" name="toneladas_arena" id="toneladas-arena" inputmode="decimal" placeholder="Ej.: 120" aria-label="Toneladas de arena sílice que consume el proyecto" hidden>
+          <small class="campo__sufijo" id="area-ayuda">Metros cuadrados por limpiar.</small>
+        </div>
+        <fieldset class="campo campo--opciones"><legend>Espacio de trabajo</legend>
+          <label class="opcion"><input type="radio" name="espacio" value="abierto" required><span>Abierto</span></label>
+          <label class="opcion"><input type="radio" name="espacio" value="cerrado"><span>Cerrado</span></label>
+        </fieldset>
+        <label class="campo"><span>Moneda de sus costos</span><select name="moneda"></select></label>
+      </div>
+
+      <h4>Si los conoce, estos datos afinan el resultado</h4>
+      <div class="rejilla rejilla--2">
+        <label class="campo"><span>Grado de limpieza <em>opcional</em></span><select name="grado"><option value="">No lo sé todavía</option></select></label>
+        <div class="campo campo--doble"><span>Perfil de anclaje <em>opcional</em></span>
+          <div class="campo__fila">
+            <input type="text" name="perfil_valor" inputmode="decimal" aria-label="Perfil de anclaje" placeholder="Ej.: 3">
+            <select name="perfil_unidad" aria-label="Unidad del perfil"><option value="mils">mils</option><option value="micrones">micrones</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="corrosion">
+        <label for="corrosion-rango"><span>Grado de corrosión inicial <em>opcional</em></span></label>
+        <div class="corrosion__cuerpo">
+          <div class="corrosion__control">
+            <input type="range" id="corrosion-rango" min="0" max="4" step="1" value="0" aria-describedby="corrosion-texto">
+            <div class="corrosion__marcas" aria-hidden="true"><span>No sé</span><span>A</span><span>B</span><span>C</span><span>D</span></div>
+            <p class="corrosion__texto" id="corrosion-texto" aria-live="polite">Mueva el control hasta la imagen que más se parece a su superficie.</p>
+          </div>
+          <div class="corrosion__fotos" id="corrosion-fotos"></div>
+        </div>
+      </div>
+
+      <details class="costos" id="costos">
+        <summary>Ajustar mis costos actuales con arena</summary>
+        <p class="panel__nota">Usamos valores de referencia. Cámbielos por los suyos para un resultado más preciso.</p>
+        <div class="rejilla rejilla--3" id="costos-campos"></div>
+        <label class="casilla"><input type="checkbox" name="nocturno"><span>El blasting se hace en jornada nocturna (recargo del <span id="recargo">35</span> %)</span></label>
+      </details>
+
+      <div class="panel__acciones">
+        <button class="boton" type="submit" id="btn-calcular">Calcular comparativo</button>
+      </div>
+    </form>
+
+    <!-- Paso 3: resultado -->
+    <section class="resultado" id="resultado" hidden aria-live="polite"></section>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="ancho pie__fila">
+    <img src="assets/img/logo-fabcom-blanco.png" alt="Fabcom" width="110" height="24">
+    <p>Los resultados son estimaciones con fines informativos, calculadas con los datos que usted suministra y con referencias públicas. No son una cotización ni una garantía de desempeño.</p>
+    <a class="boton boton--claro boton--chico pie__acceso" href="admin/">Acceso del administrador</a>
+  </div>
+</footer>
+
+<dialog class="dialogo" id="dialogo">
+  <form method="dialog" class="dialogo__cerrar"><button aria-label="Cerrar">×</button></form>
+  <div id="dialogo-cuerpo"></div>
+</dialog>
+
+<script src="assets/js/app.js?v=1.0.0" defer></script>
+</body>
+</html>

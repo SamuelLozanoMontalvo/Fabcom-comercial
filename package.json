@@ -1,0 +1,21 @@
+{
+  "name": "simulador-fabcom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simulador comercial Fabcom: arena sílice frente a abrasivos libres de sílice, con PDF, correo y CRM.",
+  "main": "api/index.js",
+  "scripts": {
+    "dev": "node scripts/local.js",
+    "start": "node scripts/local.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@libsql/client": "0.14.0",
+    "bcryptjs": "2.4.3",
+    "express": "4.21.2",
+    "nodemailer": "6.9.16",
+    "pdfkit": "0.15.2"
+  }
+}
