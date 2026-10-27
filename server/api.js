@@ -133,7 +133,7 @@ async function simularRuta(ctx) {
 
   let correoEnviado = false;
   const asesor = await asegurarAsesor(ctx, l);
-  if (primera && ctx.ajuste('enviar_pdf_cliente', '1') === '1') {
+  if (ctx.ajuste('enviar_pdf_cliente', '1') === '1') {
     try {
       const pdf = await generarPdf(ctx, l, r.cliente, ahora());
       correoEnviado = await correoResultadoCliente(ctx, l, r.cliente, pdf, asesor);

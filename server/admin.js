@@ -859,7 +859,7 @@ async function ajustes(ctx) {
     + '    <label><span>Teléfono comercial</span><input type="text" name="empresa_telefono" value="' + a('empresa_telefono') + '"></label>\n'
     + '    <label><span>WhatsApp comercial</span><input type="text" name="whatsapp_numero" inputmode="numeric" value="' + a('whatsapp_numero') + '" placeholder="573001234567"><small>Con indicativo del país y sin signos. Mientras esté vacío, el botón de WhatsApp no aparece en el simulador.</small></label>\n'
     + '    <label><span>Enlace a la política de tratamiento de datos</span><input type="url" name="politica_datos_url" value="' + a('politica_datos_url') + '" placeholder="https://"><small>Se enlaza junto a la autorización del formulario (Ley 1581 de 2012).</small></label>\n'
-    + '    <label class="casilla"><input type="checkbox" name="enviar_pdf_cliente" ' + chk(ctx.ajuste('enviar_pdf_cliente', '1') === '1') + '><span>Enviar el PDF al cliente automáticamente en su primera simulación</span></label>\n'
+    + '    <label class="casilla"><input type="checkbox" name="enviar_pdf_cliente" ' + chk(ctx.ajuste('enviar_pdf_cliente', '1') === '1') + '><span>Enviar el PDF al cliente automáticamente al completar la simulación</span></label>\n'
     + '    <button class="btn btn--chico">Guardar ajustes</button>\n  </form>\n</section>\n';
   h += '<section class="tarjeta">\n  <h2>Correo saliente</h2>\n'
     + '  <p class="ayuda">Los PDF y las alertas salen desde esta cuenta. Pida a quien administra el correo de Fabcom los datos SMTP de ' + a('correo_remitente') + '. En Vercel no hay correo propio del servidor: sin servidor SMTP no se envían el PDF ni las alertas.</p>\n'
