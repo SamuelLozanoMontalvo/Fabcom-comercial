@@ -77,24 +77,6 @@ async function lead(ctx) {
   const ua = String(ctx.req.headers['user-agent'] || '');
   const disp = /Mobile|Android|iPhone/i.test(ua) ? 'móvil' : (/iPad|Tablet/i.test(ua) ? 'tableta' : 'escritorio');
   const marketing = vacioPhp(d.acepta_marketing) ? 0 : 1;
-  let l = await ctx.db.una('SELECT * FROM leads WHERE email = ? ORDER BY id DESC LIMIT 1', [email]);
-
-  if (l) {
-    await ctx.db.ejec("UPDATE leads SET nombre=?, empresa=?, telefono=?, sector=CASE WHEN ?<>'' THEN ? ELSE sector END, area_cargo=CASE WHEN ?<>'' THEN ? ELSE area_cargo END, acepta_datos=1, acepta_marketing=MAX(acepta_marketing, ?) WHERE id=?",
-      [nombre, empresa, telefono, sector, sector, area, area, marketing, l.id]);
-    await ctx.evento(Number(l.id), 'registro', 'Volvió a registrarse en el simulador.');
-    if (tipoCliente !== '') await ctx.db.ejec('UPDATE leads SET tipo_cliente = ? WHERE id = ?', [tipoCliente, l.id]);
-    l = await leadPorId(ctx, Number(l.id));
-    if (elegido && Number(l.asesor_id) !== Number(elegido.id)) {
-      await ctx.db.ejec('UPDATE leads SET asesor_id = ? WHERE id = ?', [elegido.id, l.id]);
-      await ctx.evento(Number(l.id), 'asignacion', 'El cliente eligió a su asesor: ' + elegido.nombre + '.');
-      l.asesor_id = elegido.id;
-    }
-    const asesor = await asegurarAsesor(ctx, l);
-    if (asesor) await correoAlertaRegistro(ctx, l, asesor);
-    return ctx.json({ ok: true, token: l.token });
-  }
-
   const token = tokenHex(16);
   const r = await ctx.db.ejec('INSERT INTO leads (token, creado, nombre, email, empresa, telefono, sector, area_cargo, acepta_datos, acepta_marketing, origen, utm_source, utm_medium, utm_campaign, referrer, dispositivo, ip, tipo_cliente, asesor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [
     token, ahora(), nombre, email, empresa, telefono, sector, area, 1, marketing, 'web',
@@ -102,7 +84,7 @@ async function lead(ctx) {
   ]);
   const id = Number(r.id);
   await ctx.evento(id, 'registro', 'Se registró en el simulador. Autorizó el tratamiento de datos' + (marketing ? ' y recibir información comercial.' : '.'));
-  l = await leadPorId(ctx, id);
+  const l = await leadPorId(ctx, id);
   if (elegido) await ctx.evento(id, 'asignacion', 'Cliente actual. Eligió a su asesor: ' + elegido.nombre + '.');
   const asesor = await asegurarAsesor(ctx, l);
   if (asesor) await correoAlertaRegistro(ctx, l, asesor);
